@@ -2,16 +2,15 @@ package tonyFormisano.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 
 @Table (name="Events")
 public class Evento{
+// ID  TITLE  DATA  DESCRIZIONE  TIPO  POSTIDISPONIBILI
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column (name="eventID")
-    private long id;
+    private Long id;
 
     @Column (name="title", nullable = false)
     private String title;

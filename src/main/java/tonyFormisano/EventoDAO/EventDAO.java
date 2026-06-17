@@ -3,30 +3,35 @@ package tonyFormisano.EventoDAO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import tonyFormisano.entities.Evento;
+import tonyFormisano.exceptions.NotFoundException;
 
 public class EventDAO {
-    private final EntityManager entityManager;
 
-//    creo un constructor inn maniera da non dover creare ad ogni transaction un EntityManager
+    private final EntityManager entityManager;
     public EventDAO(EntityManager em){
         this.entityManager=em;
     }
+
+//    SALVA EVENTO
     public void salvaEvento(Evento nuovoEvento){
         EntityTransaction transaction=this.entityManager.getTransaction();
-
         transaction.begin();
         this.entityManager.persist(nuovoEvento);
         transaction.commit();
-
     }
-    public Evento trovaEventoByID(long Id){
+
+//    TROVA EVENTO
+    public Evento trovaEventoByID(long Id) throws NotFoundException {
         Evento eventoInQuestione=this.entityManager.find(Evento.class, Id);
         if (eventoInQuestione==null){
-            throw new NotFoundExeption(Id);
             System.out.println("evento non trovato");
+            throw new NotFoundException(Id);
         }
+        return eventoInQuestione;
     }
-    public void eliminaEvento (long Id){
+
+//    ELIMINA EVENTO
+    public void eliminaEvento (long Id) throws NotFoundException{
         Evento eventoInQuestione=this.entityManager.find(Evento.class, Id);
         if (eventoInQuestione==null){
             System.out.println("evento non trovato");

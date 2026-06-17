@@ -3,8 +3,9 @@ package tonyFormisano;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import jdk.jfr.Event;
 import tonyFormisano.EventoDAO.EventDAO;
+import tonyFormisano.entities.Evento;
+import tonyFormisano.exceptions.NotFoundException;
 
 public class Application {
 
@@ -19,14 +20,14 @@ public class Application {
         EventDAO eventDAO = new EventDAO(entityManager);
 
         try {
-            Event found = eventDAO.trovaEventoByID(5);
+            Evento found = eventDAO.trovaEventoByID(5);
             System.out.println(found);
         } catch (NotFoundException ex) {
             System.out.println(ex.getMessage());
         }
 
         try {
-            studentsDAO.eliminaEvento(2);
+            eventDAO.eliminaEvento(2);
         } catch (NotFoundException ex) {
             System.out.println(ex.getMessage());
         }
